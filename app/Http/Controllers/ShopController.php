@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Cart;
 use App\Models\Review;
 use Session;
+
 
 class ShopController extends Controller
 {
@@ -41,13 +42,9 @@ class ShopController extends Controller
         $rating3= Review::select('rating')->where('product_id', $product->id)->where('rating','3')->count();
         $rating4= Review::select('rating')->where('product_id', $product->id)->where('rating','4')->count();
         $rating5= Review::select('rating')->where('product_id', $product->id)->where('rating','5')->count();
-                
+           
 
-
-
-
-
-    	return view ('frontend.pages.productShow',compact('product','relatedProducts','categories','carts','t_rating','rating1','rating2','rating3','rating4','rating5'));
+       	return view ('frontend.pages.productShow',compact('product','relatedProducts','categories','carts','t_rating','rating1','rating2','rating3','rating4','rating5'));
     }
 
     //For Displaying Products According To Category
@@ -63,25 +60,34 @@ class ShopController extends Controller
     // For Displaying All Products according to Request as Featured, Latest, All Products
     public function productList(Request  $request){
 
-
+        $categories= Category::where('parent_id','!=','0')->get();
         if ( $request->data == 'latest'){
             $products= Product::where('product_status',1)->latest()->paginate('10');
-            $categories= Category::where('parent_id','!=','0')->get();
         }
         elseif( $request->data == 'featured')
         {
             $products= Product::where('product_status',1)->where('featured_product','1')->paginate('10');
-            $categories= Category::where('parent_id','!=','0')->get();
         }
         else
         {
-            $products= Product::where('product_status',1)->paginate('10');
-            $categories= Category::where('parent_id','!=','0')->get();
+            $products= Product::where('product_status',1)->paginate('10');   
         }
      	$currentsession_id = Session::getId ();
         $carts= Cart::where('session_id', $currentsession_id)->get();
      	return view('frontend.pages.productList',compact('products','categories','carts'));
 
      }
+
+     public function findSearch(Request $request)
+    {           
+        $categories= Category::where('parent_id','!=','0')->get();
+        $currentsession_id = Session::getId ();
+        $carts= Cart::where('session_id', $currentsession_id)->get();
+        $search =  $request->get ('search');      
+        $products = Product::where('product_name', 'LIKE', '%' . $search . '%' )->paginate('8');
+        
+        $datas = Category::where('title', 'LIKE', '%' . $search . '%' )->get();
+        return view('frontend.pages.findSearch',compact('products','categories','carts','datas')); 
+    }
 
 }

@@ -18,6 +18,8 @@ Route::post('/cart/{product_id}','CartController@addToCart')->name('addToCart');
 Route::post('/cart/order-place','CartController@orderPlace')->name('orderPlce');
 Route::post('/product/{slug}/review','ReviewController@addReview')->name('addReview');
 
+Route::post('/search','ShopController@findSearch')->name('findSearch');
+
 
 
 

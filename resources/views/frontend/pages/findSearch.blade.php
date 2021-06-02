@@ -90,7 +90,7 @@
 	<!---------------- STORE ------------------------->
 				<div id="store" class="col-md-9" style="width:80%;">
 					<!-- store top filter -->
-					<div class="store-filter clearfix">
+					<!-- <div class="store-filter clearfix">
 						<div class="store-sort">
 							<label>
 								Sort By:
@@ -112,11 +112,12 @@
 							<li class="active"><i class="fa fa-th"></i></li>
 							<li><a href="#"><i class="fa fa-th-list"></i></a></li>
 						</ul>
-					</div>
+					</div> -->
 					<!-- /store top filter -->
 
 					<!-- store products -->
 					<div class="row">
+					@if(count($products) > 0 or count($datas) > 0 )
 						@foreach ( $products as  $product)
 						<!-- product -->
 						<div class="col-md-4 col-6">
@@ -154,7 +155,7 @@
 									@endif
 									<div class="product-btns">
 										<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+										
 										<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 									</div>
 								</div>
@@ -163,8 +164,67 @@
 								</div>
 							</div>
 						</div>
+						 
 						<!-- /product -->
 						@endforeach
+
+
+						@foreach ( $datas as $category)
+							<h3> {{$category->title}}<span style="font-size: 18px;font-wight: 10px;font-weight: normal;"> ({{$category->products->count()}})</span></h3>
+							 @forelse ( $category->products as  $product)
+						<!-- product -->
+						<div class="col-md-4 col-6">
+							<div class="product">
+								<div class="product-img">
+									<a href="{{ route('productShow',$product->product_slug) }}"> <img src="{{ asset('Products/uploads/'. $product->product_image) }}" alt="" style="height:300px; width: 310px;"></a>
+									<div class="product-label">
+										<span class="sale">-30%</span>
+										
+									</div>
+								</div>
+								<div class="product-body">
+									<p class="product-category">{{ $product->category->title}}</p>
+									<h3 class="product-name">
+										<a href="{{ route('productShow',$product->product_slug) }}"> 
+											{{$product->product_name}}
+										</a>
+									</h3>
+									<h4 class="product-price">Rs.{{ $product->product_price}}<del class="product-old-price">Rs.{{ $product->product_price}}</del></h4>
+									@if ($product->reviews->count() == 0)
+										<strong>No Review(s) Yet.</strong>
+									@else
+										<div class="product-rating">
+											@php
+												$avg_rating = $product->reviews->avg('rating');
+											 	$t_rating = number_format($avg_rating);
+											@endphp
+											@for($i = 0; $i < $t_rating; $i++)
+												<i class="fa fa-star"></i>
+										    @endfor
+											@for($i = 0; $i < 5 - $t_rating; $i++)
+									           	<i class="fa fa-star-o"></i>
+										    @endfor  
+										</div>
+									@endif
+									<div class="product-btns">
+										<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+										
+										<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+									</div>
+								</div>
+								<div class="add-to-cart">
+									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								</div>
+							</div>
+						</div>
+							@empty
+							<span>No Products Found.</span>
+						  	@endforelse
+						<!-- /product -->
+						@endforeach
+					@else
+						<span>No Search Found.</span>
+					@endif
 					</div>
 					<!-- /store products -->
 
@@ -182,7 +242,6 @@
 
 
  @endsection
- 
  @section('javas')
 
 <!-- Error Msg With Sweet Alert -->

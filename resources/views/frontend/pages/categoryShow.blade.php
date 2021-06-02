@@ -127,16 +127,25 @@
 												{{ $product->product_price}}
 											</del>
 										</h4>
+										@if ($product->reviews->count() == 0)
+										<strong>No Review(s) Yet.</strong>
+									@else
 										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
+											@php
+												$avg_rating = $product->reviews->avg('rating');
+											 	$t_rating = number_format($avg_rating);
+											@endphp
+											@for($i = 0; $i < $t_rating; $i++)
+												<i class="fa fa-star"></i>
+										    @endfor
+											@for($i = 0; $i < 5 - $t_rating; $i++)
+									           	<i class="fa fa-star-o"></i>
+										    @endfor  
 										</div>
+									@endif
 										<div class="product-btns">
 											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											
 											<button class="quick-view">
 												<a href={{ route('productShow', $product->product_slug) }}>
 													<i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
@@ -203,3 +212,4 @@
   	@endif
 
   @endsection
+  

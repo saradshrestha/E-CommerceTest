@@ -40,9 +40,10 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">									
-								<form>
-									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+								<form action="{{route ('findSearch')}}" method ="post">
+									 @csrf
+									<input class="input" placeholder="Search here" name="search">
+									<button class="search-btn" type="submit">Search</button>
 								</form>
 							</div>
 						</div>
