@@ -42,7 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class,'user_id');
     }
 
-    public function reviews (){
+    public function reviews(){
         return  $this->hasOne(Review::class,'user_id');
+    }
+
+    public function deliveries(){
+        return $this->hasMany(Delivery::class,'user_id');
     }
 }

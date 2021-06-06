@@ -146,8 +146,32 @@
                     </div>
                 </div>
             </div>
-                @include ('frontend.includes.footer')
-                         @include ('frontend.includes.js')
-                          @yield ('javas')
+        @include ('frontend.includes.footer')
+        @include ('frontend.includes.js')
+            
+        @if(Session::has('error'))
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ Session::get ('error')}}'
+                })
+            </script>
+        }
+        @endif
+        <!-- Success Msg With Sweet Alert -->
+        @if  (Session::has('success'))
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great',
+                    text: '{{ Session::get('success')}}'
+                } )
+            </script>
+        }
+        @endif
+        </script>                 
     </body>
 </html>

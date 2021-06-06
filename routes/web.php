@@ -21,6 +21,18 @@ Route::post('/product/{slug}/review','ReviewController@addReview')->name('addRev
 Route::post('/search','ShopController@findSearch')->name('findSearch');
 
 
+Route::middleware('auth')->group (function(){
+	Route::get('/orders','OrderController@viewOrders')->name('viewOrders');
+	Route::post('/order/placement','OrderController@addOrder')->name('addOrder');
+
+	Route::get ('/user/{username}/userprofile','UserController@showProfile')->name('showProfile');
+	Route::get ('/user/{id}/editprofile','UserController@userProfileEdit')->name('userProfileEdit');
+	Route::get('/user/password-change','UserController@passwordChange')->name('changePassword');
+	Route::put('/user/password-change-submit','UserController@passwordChangeSubmit')->name('changePasswordSubmit');
+});
+
+
+
 
 
 //User Logout

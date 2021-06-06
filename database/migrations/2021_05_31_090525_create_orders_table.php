@@ -15,8 +15,15 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-                
+            $table->decimal('total_amount',8,2);
+            $table->tinyInteger ('is_delivered')->default('0'); // 0=No
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('delivery_id'); 
+            $table->unsignedInteger('delivery_method'); //0= Cash On Delivery
+          
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('cascade');
         });
     }
 

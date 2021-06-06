@@ -38,14 +38,14 @@
 								</div>
 								<div class="form-group">
 									<label>New password <span style="color:red;">*</span></label>
-									<input type="password" class="form-control" name="new_password">
+									<input type="password" class="form-control" name="new_password" required>
 									@error('new_password')
 									    <div class="danger" style="padding-left: 10px; background-color: red; border-radius: 5px;">{{ $message }}</div>
 									@enderror
 								</div>
 								<div class="form-group">
 									<label>Confirm password <span style="color:red;">*</span></label>
-									<input type="password" class="form-control" name="confirm_new_password">
+									<input type="password" class="form-control" name="confirm_new_password" required>
 									@error('confirm_new_password')
 									    <div class="danger" style="padding-left: 10px; background-color: red; border-radius: 5px;">{{ $message }}</div>
 									@enderror
