@@ -10,6 +10,10 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Delivery;
+use App\Models\OrderProduct;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlacement;
+
 
 class OrderController extends Controller
 {
@@ -22,16 +26,15 @@ class OrderController extends Controller
   		$current_session= Session::getId();
  		$user_id = Auth()->id();
  		$carts = Cart::where('session_id', $current_session)->where('user_id', $user_id)->get();
- 		$products_id = Cart::select('product_id')->where('session_id', $current_session)->where('user_id', $user_id)->get()->toArray();
+ 		$product_details = Cart::select('product_quantity','product_id')->where('session_id', $current_session)->where('user_id', $user_id)->get();
+ 		( $product_details);
+ 		//$products_id = Cart::select('product_id')->where('session_id', $current_session)->where('user_id', $user_id)->get()->toArray();
  		//dd ( $products_id);
  		global  $total_amount;
         foreach($carts as $cart) {
              $total_amount = ($cart->product->product_price * $cart->product_quantity) + $total_amount;
-        	
-        }	
-        
-
-  		$request->validate([
+         }	
+        $request->validate([
 	      	'name' => ['required','string'],
 	      	'email' => ['email'],
 	      	'phone' => ['required','Integer'],
@@ -43,7 +46,6 @@ class OrderController extends Controller
 	      	'terms'=>['required'],
 	    ],
 	 	[
-	 		
 	 		'name.required' => "Required",
 	 		'name.string' => 'Must Be a String',
 	 		'address.required' => "Required",
@@ -76,24 +78,43 @@ class OrderController extends Controller
 
  		
 		$order = new Order();
-		 $order->total_amount =  $total_amount;
-		 $order->is_delivered = 0;
-		 $order->user_id =  $user_id;
-		 $order->delivery_id =  $delivery->id;
-		 $order->delivery_method = $request->get('payment');
-		 
+		$order->total_amount =  $total_amount;
+		$order->is_delivered = 0;
+		$order->user_id =  $user_id;
+		$order->delivery_id =  $delivery->id;
+		$order->delivery_method = $request->get('payment');
 
-		  $order->save();
-		  $order->products()->sync($products_id,true);
+		$order->save();	
+
+		 $order_id=  $order->id;
+		foreach ($product_details as $product_detail) {
+		 	$orderProduct = new OrderProduct ();
+		 	$orderProduct->order_id=  $order_id;
+		 	$orderProduct->product_id =  $product_detail->product_id;
+		 	$orderProduct->quantity =  $product_detail->product_quantity;
+		 	
+		 	$orderProduct->save();
+		 }
+
+		Cart::where('session_id',$current_session)->where('user_id',$user_id)->delete();
+		$user_email= Auth()->user()->email;
+		$orderInfo = [
+		   				'id' =>  $order->id,
+		   				'message' => 'Happy Shopping with Us.',
+		   				'link' => 'www.gmail.com',
+		  ];
+		Mail::to($user_email)->send(new OrderPlacement($orderInfo)); 
 		  
-		  return redirect()->back()->with ('success','Order Place Successfully');
+		return redirect()->route('index')->with ('success','Thank You For Shopping With Us.');
  		 		
   	}
 
   	public function viewOrders(){
 
-         $orders = Order::where ('user_id',Auth::guard('web')->id())->get();
-         
+        $orders = Order::where('user_id',Auth::guard('web')->id())->get();
+         //dd( $orders);
+       
+    	
     	return view('frontend.pages.userMenu.viewOrder',compact('orders') )->with('no',1);
 
     }

@@ -183,7 +183,7 @@
 
  @endsection
  
- @section('javas')
+ {{-- @section('javas')
 
 <!-- Error Msg With Sweet Alert -->
 	@if(Session::has('error'))
@@ -208,6 +208,6 @@
 				} )
  		</script>
 	}
-  	@endif
+  	@endif --}}
 
   @endsection

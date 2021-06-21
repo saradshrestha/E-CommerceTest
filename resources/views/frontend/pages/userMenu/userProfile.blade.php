@@ -11,7 +11,7 @@
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
 							<li><a href="{{ route('index') }}">Home</a></li>
-							<li><a>{{auth()->user()->name}}</a></li>
+							<li><a>{{ $user->name}}</a></li>
 							
 						</ul>
 					</div>
@@ -38,23 +38,23 @@
 						<table>
 							<tr >
 								<th style="padding-right:50px;padding-bottom:10px; ">Name :</th>
-								<td style="padding-right:50px;padding-bottom:10px">{{Auth::user()->name}}</td>
+								<td style="padding-right:50px;padding-bottom:10px">{{ $user->name}}</td>
 							</tr>
 							<tr >
 								<th style="padding-right:50px;padding-bottom:10px">Email :</th>
-								<td style="padding-right:50px;padding-bottom:10px">{{Auth::user()->email}}</td>
+								<td style="padding-right:50px;padding-bottom:10px">{{ $user->email}}</td>
 							</tr>
 							<tr >
 								<th style="padding-right:50px;padding-bottom:10px">Phone :</th>
-								<td style="padding-right:50px;padding-bottom:10px">{{Auth::user()->name}}</td>
+								<td style="padding-right:50px;padding-bottom:10px">{{ $user->userprofile->phone}}</td>
 							</tr>
 							<tr >
 								<th style="padding-right:50px;padding-bottom:10px ">Gender :</th>
-								<td style="padding-right:50px;padding-bottom:10px">{{Auth::user()->name}}</td>
+								<td style="padding-right:50px;padding-bottom:10px">{{ $user->userprofile->gender}}</td>
 							</tr>
 							<tr >
 								<th style="padding-right:50px;padding-bottom:10px">Address :</th>
-								<td style="padding-right:50px;padding-bottom:10px">{{Auth::user()->name}}</td>
+								<td style="padding-right:50px;padding-bottom:10px">{{ $user->userprofile->address}}</td>
 							</tr>
 										
 						</table>

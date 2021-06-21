@@ -6,7 +6,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Mail\Mailable;
+use App\Mail\WelcomeUser;
+use Illuminate\Support\Facades\Mail;
 trait RegistersUsers
 {
     use RedirectsUsers;
@@ -32,6 +34,12 @@ trait RegistersUsers
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
+        $mailInfo = [
+                    'name' => $request->get('name'),
+                    'message' => 'Happy Shopping With Us.',
+                    'link' => 'www.gmail.com',
+                ];
+        Mail::to( $request->get('email'))->send(new WelcomeUser($mailInfo));
 
         $this->guard()->login($user);
 

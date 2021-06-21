@@ -16,7 +16,7 @@ class AdminLoginController extends Controller
 
    //Admin Email and Password Check 
     public function adminLoginSubmit(Request  $request){
-    	 $data =  $request->all ();;
+    	 $data =  $request->all ();
     	 if(Auth::guard('admin')->attempt(['email' =>  $data['email'], 'password' =>  $data['password']]) ){
     	 	return redirect()->route('adminDashboard')->with('success','LogIn Successful.');
     	 }

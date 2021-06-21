@@ -303,10 +303,10 @@
 		</div>
 		<!-- /SECTION -->
  @endsection
- @section('javas')
-
+ {{-- @section('javas')
+ --}}
 <!-- Error Msg With Sweet Alert -->
-	@if(Session::has('error'))
+	{{-- @if(Session::has('error'))
 	{
   		<script type="text/javascript">
   			Swal.fire({
@@ -316,9 +316,9 @@
 				})
  		</script>
 	}
- 	@endif
+ 	@endif --}}
  	<!-- Success Msg With Sweet Alert -->
-	@if  (Session::has('success'))
+	{{-- @if  (Session::has('success'))
 	{
   		<script type="text/javascript">
   			Swal.fire({
@@ -330,4 +330,4 @@
 	}
   	@endif
 
-  @endsection
+  @endsection --}}

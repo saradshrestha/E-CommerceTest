@@ -80,7 +80,7 @@
 									<div class="qty-label">
 										Qty
 										<div class="input-number">
-											<input type="number" name= "product_quantity" value="{{old ('product_quantity')}}" required>
+											<input type="number" name= "product_quantity" value="{{ 1 ?? old ('product_quantity')}}" required>
 											<span class="qty-up">+</span>
 											<span class="qty-down">-</span>
 										</div>
@@ -408,9 +408,7 @@
 
 @endsection
 
- @section('javas')
-
-<!-- Error Msg With Sweet Alert -->
+{{--  @section('javas')
 	@if(Session::has('error'))
 	{
   		<script type="text/javascript">
@@ -422,7 +420,7 @@
  		</script>
 	}
  	@endif
- 	<!-- Success Msg With Sweet Alert -->
+
 	@if  (Session::has('success'))
 	{
   		<script type="text/javascript">
@@ -435,4 +433,4 @@
 	}
   	@endif
 
-  @endsection
+  @endsection --}}

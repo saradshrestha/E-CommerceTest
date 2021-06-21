@@ -12,11 +12,13 @@ Route::get('/category/{slug}','ShopController@categoryShow')->name('productCateg
 
 Route::get('/product/{slug}','ShopController@productShow')->name('productShow');
 Route::get('/products/{data}','ShopController@productList')->name('productList');
+Route::post('/product/{slug}/review','ReviewController@addReview')->name('addReview');
+
 Route::get ('/cart/show','CartController@showToCart')->name('showToCart');
 Route::post('/cart/remove/{id}','CartController@removeCart')->name('removeCart');
-Route::post('/cart/{product_id}','CartController@addToCart')->name('addToCart');
 Route::post('/cart/order-place','CartController@orderPlace')->name('orderPlce');
-Route::post('/product/{slug}/review','ReviewController@addReview')->name('addReview');
+Route::post('/cart/{product_id}','CartController@addToCart')->name('addToCart');
+
 
 Route::post('/search','ShopController@findSearch')->name('findSearch');
 
@@ -25,29 +27,16 @@ Route::middleware('auth')->group (function(){
 	Route::get('/orders','OrderController@viewOrders')->name('viewOrders');
 	Route::post('/order/placement','OrderController@addOrder')->name('addOrder');
 
-	Route::get ('/user/{username}/userprofile','UserController@showProfile')->name('showProfile');
-	Route::get ('/user/{id}/editprofile','UserController@userProfileEdit')->name('userProfileEdit');
-	Route::get('/user/password-change','UserController@passwordChange')->name('changePassword');
-	Route::put('/user/password-change-submit','UserController@passwordChangeSubmit')->name('changePasswordSubmit');
+	Route::get('/password-change','UserController@passwordChange')->name('changePassword');
+	Route::put('/password-change-submit','UserController@passwordChangeSubmit')->name('changePasswordSubmit');
+
+	Route::get ('/user/{username}','UserProfileController@showProfile')->name('showProfile');
+	Route::get ('/user/{username}/edit','UserProfileController@editProfile')->name('editProfile');
+	Route::put ('/user/update','UserProfileController@updateProfile')->name('updateProfile');
+
+	Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
 });
-
-
-
-
-
-//User Logout
-Route::get('/logout', 'Auth\LoginController@logout')->name('logout')->middleware('auth');
-
-
-/*Route::get ('/login','Auth/LoginController@userLogIn')->name('userLogIn');
-
-Route::post('/login-submit','Auth/LoginController@userLogIn')->name('userLogInSubmit');
-Route::get ('/register','Auth/RegisterController@userRegister')->name('userRegister');
-Route::post('/register','Auth/RegisterController@userRegisterSubmit')->name ('userRegisterSubmit'); 
-*/
-
-
-
 
 
 
@@ -90,4 +79,4 @@ Route::prefix  ('/admin')->group(function(){
 
 
 
-//Route::get('/', 'HomeController@index')->name('home');
+

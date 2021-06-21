@@ -84,7 +84,7 @@
                             <h3 class="title" style="padding-bottom: 30px;">Menu</h3>
 
                             <div class="sub-title" style=" padding-bottom: 10px;">
-                                <h5><a href = "" >Update Profile</a></h5>
+                                <h5><a href = "{{ route('editProfile', Auth::user()->username) }}" >Update Profile</a></h5>
                             </div>
                             <div class="sub-title" style="padding-bottom: 10px;">
                                 <h5><a href="{{ route('viewOrders') }}">View Orders</a></h5>
@@ -129,6 +129,17 @@
                     icon: 'success',
                     title: 'Great',
                     text: '{{ Session::get('success')}}'
+                } )
+            </script>
+        }
+        @endif
+        @if  (Session::has('warning'))
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    icon: 'waring',
+                    title: 'Warning',
+                    text: '{{ Session::get('warning')}}'
                 } )
             </script>
         }

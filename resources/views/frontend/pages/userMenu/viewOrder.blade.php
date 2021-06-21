@@ -36,37 +36,42 @@
 						<h3><center>User Details</center></h3>
 					</div>
 					<div class="table" style="margin-left: 30px">
-						<table>
-							<tr >
-								<th style="padding-right:50px;padding-bottom:10px; ">S.No.</th>
-								<th style="padding-right:50px;padding-bottom:10px">Date</th>
-								<th style="padding-right:50px;padding-bottom:10px">Products</th>
-								<th style="padding-right:50px;padding-bottom:10px">Price</th>
-								<th style="padding-right:50px;padding-bottom:10px">Total Amount</th>
+						<table border="border-collapse: collapse ;" style="padding-right: 50px; padding-bottom: 10px">
+						@if($orders->count() != 0)
+							<tr>
+								<th width="50" style="padding: 5px 0px 5px 0px"><center>S.No.</center></th>
+								<th width="120"><center>Date</center></th>
+								<th width="200"><center>Products</center></th>
+								<th width="120"><center>Price</center></th>
+								
+								<th width="150"><center>Total Amount</center></th>
 							</tr>
-							 @forelse  ( $orders as  $order)
-							<tr >
+							
+							<tr>
+								@foreach($orders as $order)
 								
-								<td style="padding-right:50px;padding-bottom:10px">{{ $no++}}</td>
-								<td style="padding-right:50px;padding-bottom:10px">{{  $order->created_at->format('j F, Y')}}</td>
+								<td><center>{{ $no++}}</center></td>
+								<td style="padding:2px 15px 2px 5px; ">{{  $order->created_at->format('j F, Y')}}</td>
 								
-									<td style="padding-right:50px;padding-bottom:10px">
+									<td style="padding:2px 15px 2px 5px; ">
 										@foreach ( $order->products as $product)
 										{{ $product->product_name}}<br>
 										 @endforeach
 									</td>
-									<td style="padding-right:50px;padding-bottom:10px">
+									<td style="padding:2px 15px 2px 5px; ">
 										@foreach ( $order->products as $product)
 										Rs. {{ $product->product_price}}<br>
 										@endforeach
 									</td>
+
 							
-								<td style="padding-right:50px;padding-bottom:10px">Rs. {{ $order->total_amount}}</td>
-								
-							</tr>
-							 @empty
+								<td style="padding:5px 5px 5px 0px; text-align: right;">Rs. {{ $order->total_amount}}</td>
+							</tr>				 
+							@endforeach
+
+							 @else
 							 <strong>No Orders Has Been Placed.</strong>
-							 @endforelse
+							  @endif
 							
 										
 						</table>

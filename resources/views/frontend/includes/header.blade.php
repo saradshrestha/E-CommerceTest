@@ -11,12 +11,28 @@
 					<ul class="header-links pull-right">
 						
 						@auth
-						 	<li><a href="{{ route('showProfile',auth()->user()->username) }}"><i class="fa fa-user-o"></i>Your Profile</a></li>
-							<li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i>
-							 Logout</a></li>
+							<li>
+								<a href="{{ route('showProfile',auth()->user()->username) }}">
+								<i class="fa fa-shopping-bag"></i>Your Orders
+							</a>
+							</li>
+						 	<li>
+						 		<a href="{{ route('showProfile',auth()->user()->username) }}"><i class="fa fa-user-o"></i>Your Profile
+						 		</a>
+						 	</li>
+							<li>
+								<a href="{{ route('logout') }}"><i class="fa fa-power-off"></i>
+							 	Logout
+								</a>
+							</li>
 
 						@else
-							<li><a href="{{ route('login') }}"><i class="fa fa-sign-in"></i>Log In</a></li>
+							<li>
+								<a href="{{ route('login') }}"><i class="fa fa-sign-in"></i>Log In</a>
+							</li>
+							<li>
+								<a href="{{ route('register') }}"><i class="fa fa-user"></i>Sign Up</a>
+							</li>
 						@endauth
 					</ul>
 				</div>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Models\User;
 class UserSeeder extends Seeder
 {
     /**
@@ -32,6 +32,17 @@ class UserSeeder extends Seeder
 		       	'created_at' =>now(),
 		       	'updated_at' => now(),
 
-	        ]);
+	        ],
+        [
+		       	'name' => 'Test User',
+		       	'email' => 'testuser@test.com',
+		       	'username' => 'testuser',
+		       	'password' => bcrypt('123456789'),
+		       	'role_id' => 1,
+		       	'status' => 1,
+		       	'created_at' =>now(),
+		       	'updated_at' => now  (),
+		       ]
+		    ]);
     }
 }

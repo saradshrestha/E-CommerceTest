@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeUser;
+
+
 
 class RegisterController extends Controller
 {
@@ -29,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
+    /*protected $redirectTo = '/login';*/
 
     /**
      * Create a new controller instance.
@@ -90,5 +94,7 @@ class RegisterController extends Controller
             'status' => 1,
             'password' => Hash::make($data['password']),
         ]);
-        return redirect()->intended('login')->with('success','Your account has been created.' );
+        Session::flash('success','Your account has been created. and Mail Has been sent');
+        return redirect()->route('index');
+    }
 }

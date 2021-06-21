@@ -245,7 +245,7 @@
  @section('javas')
 
 <!-- Error Msg With Sweet Alert -->
-	@if(Session::has('error'))
+	{{-- @if(Session::has('error'))
 	{
   		<script type="text/javascript">
   			Swal.fire({
@@ -256,7 +256,7 @@
  		</script>
 	}
  	@endif
- 	<!-- Success Msg With Sweet Alert -->
+ 	Success Msg With Sweet Alert
 	@if  (Session::has('success'))
 	{
   		<script type="text/javascript">
@@ -269,4 +269,4 @@
 	}
   	@endif
 
-  @endsection
+  @endsection --}}
