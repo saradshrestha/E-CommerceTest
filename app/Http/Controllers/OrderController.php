@@ -111,10 +111,8 @@ class OrderController extends Controller
 
   	public function viewOrders(){
 
-        $orders = Order::where('user_id',Auth::guard('web')->id())->get();
-         //dd( $orders);
-       
-    	
+        $orders = Order::where('user_id',Auth::guard('web')->id())->paginate (5);
+  
     	return view('frontend.pages.userMenu.viewOrder',compact('orders') )->with('no',1);
 
     }

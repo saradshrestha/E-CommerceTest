@@ -47,7 +47,7 @@
                                 @enderror
 							</div>
 							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email" value="{{old('name')}}" >
+								<input class="input" type="email" name="email" placeholder="Email" value="{{old('email')}}" >
 								@error('email')
                                     <span class="text-danger" role="alert">
                           	        <strong>{{ $message }}</strong>
@@ -55,7 +55,7 @@
                                 @enderror
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="phone" placeholder="Telephone" value="{{old('name')}}">
+								<input class="input" type="tel" name="phone" placeholder="Telephone" value="{{old('phone')}}">
 								@error('phone')
                                     <span class="text-danger" role="alert">
                           	        <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
                                 @enderror
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Street Name" value="{{old('name')}}">
+								<input class="input" type="text" name="address" placeholder="Street Name" value="{{old('address')}}">
 								@error('address')
                                     <span class="text-danger" role="alert">
                           	        <strong>{{ $message }}</strong>

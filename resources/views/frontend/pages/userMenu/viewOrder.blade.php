@@ -42,8 +42,8 @@
 								<th width="50" style="padding: 5px 0px 5px 0px"><center>S.No.</center></th>
 								<th width="120"><center>Date</center></th>
 								<th width="200"><center>Products</center></th>
+								<th width="80"><center>Quantity</center></th>
 								<th width="120"><center>Price</center></th>
-								
 								<th width="150"><center>Total Amount</center></th>
 							</tr>
 							
@@ -55,8 +55,13 @@
 								
 									<td style="padding:2px 15px 2px 5px; ">
 										@foreach ( $order->products as $product)
-										{{ $product->product_name}}<br>
+										{{ $product->product_name}} x {{ $product->pivot->quantity }}<br>
 										 @endforeach
+									</td>
+									<td style="padding:2px 15px 2px 5px; "><center>
+										@foreach ( $order->products as $product)
+										x {{ $product->pivot->quantity }}<br>
+										@endforeach </center>
 									</td>
 									<td style="padding:2px 15px 2px 5px; ">
 										@foreach ( $order->products as $product)
@@ -73,8 +78,9 @@
 							 <strong>No Orders Has Been Placed.</strong>
 							  @endif
 							
-										
+											
 						</table>
+						{{ $orders ->links()}}
 					</div>
 				</div>
 			</div>
