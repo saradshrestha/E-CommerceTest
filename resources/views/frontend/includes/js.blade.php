@@ -9,6 +9,7 @@
 	<!-- SweetAlert2 JS -->
 	<script src="{{ asset('backend/assets/js/sweetalert2.min.js' )}}"></script>
 	<script src="{{ asset('backend/assets/js/sweetalert2.all.min.js' )}}"></script>
+	
 
 	@if(Session::has('error'))
 	{
@@ -44,3 +45,5 @@
  		</script>
 	}
   	@endif
+
+  

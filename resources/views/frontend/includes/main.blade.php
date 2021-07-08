@@ -11,7 +11,7 @@
 		<!-- /NAVIGATION -->
 
 		<!-- SECTION -->
-		 @yield ('content')
+		 @yield('content')
 		<!-- /SECTION -->
 
 	

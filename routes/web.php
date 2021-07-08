@@ -42,6 +42,7 @@ Route::middleware('auth')->group (function(){
 
 Route::prefix  ('/admin')->group(function(){
 	Route::get('/login', 'AdminLoginController@adminLogin')->name('adminLogin');
+	Route::get('/', 'AdminLoginController@adminLogin')->name('adminLogin');
 	Route::post('/login','AdminLoginController@adminLoginSubmit')->name('adminLoginSubmit');
 
 	Route::group(['middleware' => 'admin'],function(){
