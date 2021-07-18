@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -23,7 +24,7 @@ Route::post('/cart/{product_id}','CartController@addToCart')->name('addToCart');
 Route::post('/search','ShopController@findSearch')->name('findSearch');
 
 
-Route::middleware('auth')->group (function(){
+Route::middleware('user')->group (function(){
 	Route::get('/orders','OrderController@viewOrders')->name('viewOrders');
 	Route::post('/order/placement','OrderController@addOrder')->name('addOrder');
 
@@ -41,9 +42,9 @@ Route::middleware('auth')->group (function(){
 
 
 Route::prefix  ('/admin')->group(function(){
-	Route::get('/login', 'AdminLoginController@adminLogin')->name('adminLogin');
-	Route::get('/', 'AdminLoginController@adminLogin')->name('adminLogin');
-	Route::post('/login','AdminLoginController@adminLoginSubmit')->name('adminLoginSubmit');
+	Route::get('/login', 'AdminLoginController@adminLogin')->name('adminLogin')->middleware('guest');
+	Route::get('/', 'AdminLoginController@adminLogin')->name('adminLogin')->middleware('guest');;
+	Route::post('/login','AdminLoginController@adminLoginSubmit')->name('adminLoginSubmit')->middleware('guest');;
 
 	Route::group(['middleware' => 'admin'],function(){
 		Route::get('/dashboard','AdminLoginController@dashboard')->name('adminDashboard'); 
@@ -77,7 +78,10 @@ Route::prefix  ('/admin')->group(function(){
 });
 
 
-
+Route::get('/session-reset',function (){
+	 Session::forget ('cart');
+	 return redirect()->route('index');
+});
 
 
 

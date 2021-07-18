@@ -19,10 +19,10 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard('admin')->check()) {
-                return redirect('/adminDashboard');
+                return redirect('/adminDashboard')->with('error','You dont have the permission');
             }
         if (Auth::guard('web')->check()) {
-                return redirect('/');
+                return redirect('/')->with ('error','You dont have the permission');
             }
 
         return $next($request);

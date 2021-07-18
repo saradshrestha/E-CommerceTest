@@ -11,6 +11,7 @@ use App\Models\Review;
 use Session;
 
 
+
 class ShopController extends Controller
 {
 
@@ -18,6 +19,7 @@ class ShopController extends Controller
 	
     //For Displaying Products With Featured, Latest and All Products
     public function index(){
+
     	$latestproducts = Product::where('product_status', 1)->latest()->take(5)->get(); 
     	$products = Product::where('product_status', 1)->get();
     	$featuredProducts = Product::where('product_status', 1)->where('featured_product',1)->get();
@@ -30,7 +32,9 @@ class ShopController extends Controller
     public function productShow($slug){
     	$product = Product::where('product_slug', $slug)->first();
     	$relatedProducts = Product::where('category_id', $product->category_id)->where('id','!=', $product->id)->take(5)->get();
-    	
+    	//if( Session::has('cart')){
+          //  (Session::get('cart'));
+        //}
         /*$currentsession_id = Session::getId ();*/
        /* $carts= Cart::where('session_id', $currentsession_id)->get();*/
         $avg_rating =  $product->reviews->avg('rating');

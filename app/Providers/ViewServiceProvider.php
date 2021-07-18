@@ -34,9 +34,9 @@ class ViewServiceProvider extends ServiceProvider
         // Using closure based composers...
         
         View::composer('frontend.*', function ($view) {
-            $currentsession_id = Session::getId (); 
+            $currentsession_id = Session::get('cart'); 
             $view->with('categories', Category::where('parent_id','!=','0')->get());
-            $view->with ('carts', Cart::where('session_id', $currentsession_id )->get());
+            $view->with('carts', Cart::where('session_id', $currentsession_id )->get());
         });
     }
 }
